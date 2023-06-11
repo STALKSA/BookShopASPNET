@@ -32,7 +32,7 @@ async void AddProduct(HttpContext context)
 
         var uri = $"/get_product?productId={productId}";
 
-        // кода ответа 201 Created
+        // РєРѕРґ РѕС‚РІРµС‚Р° 201 Created
         context.Response.StatusCode = StatusCodes.Status201Created;
         context.Response.Headers.Add("Location", uri);
     }
