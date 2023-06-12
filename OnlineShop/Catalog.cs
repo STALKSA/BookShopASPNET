@@ -51,6 +51,10 @@ namespace OnlineShop
             {
                 throw new ArgumentException($"Продукт с ID {updatedProduct.Id} не существует");
             }
+            
+            var index = _products.FindIndex(p => p.Id == updatedProduct.Id);
+            _products[index] = updatedProduct;
+            _productDictionary[updatedProduct.Id] = updatedProduct;
         }
 
         public void UpdateProductById(int productId, Product updatedProduct)
@@ -61,6 +65,7 @@ namespace OnlineShop
             }
 
             updatedProduct.Id = productId;
+            _products[_products.FindIndex(p => p.Id == productId)] = updatedProduct;
             _productDictionary[productId] = updatedProduct;
         }
 
