@@ -35,9 +35,9 @@
 
         public Product(int id, string name, decimal price)
         {
-            if (string.IsNullOrEmpty(name))
+            if (string.IsNullOrWhiteSpace(name))
             {
-                throw new ArgumentException($"'{nameof(name)}' не может быть пустым");
+                throw new ArgumentException($"'{nameof(name)}' не может быть пустым или состоять из пробелов");
             }
             if (price <= 0)
             {
