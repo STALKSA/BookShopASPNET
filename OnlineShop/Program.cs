@@ -1,9 +1,9 @@
 using OnlineShop;
 using Microsoft.AspNetCore.Http.Json;
 
-
-
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 builder.Services.Configure<JsonOptions>(
    options =>
@@ -12,6 +12,8 @@ builder.Services.Configure<JsonOptions>(
    }
 );
 var app = builder.Build();
+app.UseSwagger();
+app.UseSwaggerUI();
 
 Catalog catalog = new Catalog();
 
