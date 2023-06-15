@@ -8,15 +8,15 @@ namespace OnlineShop
 
         public Catalog()
         {
-            _productDictionary = GenerateProducts(10).ToConcurrentDictionary(p => p.Id);
+           _productDictionary = new ConcurrentDictionary<int, Product>(GenerateProducts(10).ToDictionary(p => p.Id));
         }
 
-        public IEnumerable<Product> GetProducts()
+        public async Task<ConcurrentDictionary<int, Product>> GetProductsAsync()
         {
-            return _productDictionary.Values;
+            return _productDictionary;
         }
 
-        public void AddProduct(Product product)
+        public async Task AddProductAsync(Product product)
         {
             if (!_productDictionary.TryAdd(product.Id, product))
         {
@@ -25,18 +25,24 @@ namespace OnlineShop
             
         }
 
-        public Product GetProductById(int productId)
+        public async Task<Product> GetProductByIdAsync(int productId)
         {
-            _productDictionary.TryGetValue(productId, out Product product);
-             return product;
+            if (!_products.TryGetValue(productId, out var product))
+            {
+                throw new KeyNotFoundException($"Товар с ID '{productId}' не найден или не существует.");
+            }
+            else
+            {
+                return product;
+            }
         }
 
-        public void RemoveProduct(Product product)
+        public async Task RemoveProduct(Product product)
         {
            _productDictionary.TryRemove(product.Id, out _);
         }
 
-        public void UpdateProduct(Product updatedProduct)
+        public async Task UpdateProduct(Product updatedProduct)
         {
             if (!_productDictionary.ContainsKey(updatedProduct.Id))
         {
@@ -46,7 +52,7 @@ namespace OnlineShop
              _productDictionary[updatedProduct.Id] = updatedProduct;
         }
 
-        public void UpdateProductById(int productId, Product updatedProduct)
+        public async Task UpdateProductById(int productId, Product updatedProduct)
         {
             if (!_productDictionary.ContainsKey(productId))
         {
@@ -57,12 +63,12 @@ namespace OnlineShop
             _productDictionary[productId] = updatedProduct;
         }
 
-        public void ClearCatalog()
+        public async Task ClearCatalog()
         {
             _productDictionary.Clear();
         }
 
-        private static IEnumerable<Product> GenerateProducts(int count)
+        private static ConcurrentDictionary<int, Product> GenerateProducts(int count)
         {
             var random = new Random();
             var products = new List<Product>();
