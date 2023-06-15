@@ -11,12 +11,12 @@ namespace OnlineShop
            _productDictionary = new ConcurrentDictionary<int, Product>(GenerateProducts(10).ToDictionary(p => p.Id));
         }
 
-        public async Task<ConcurrentDictionary<int, Product>> GetProductsAsync()
+        public <ConcurrentDictionary<int, Product>> GetProducts()
         {
             return _productDictionary;
         }
 
-        public async Task AddProductAsync(Product product)
+        public void AddProduct(Product product)
         {
             if (!_productDictionary.TryAdd(product.Id, product))
         {
@@ -25,7 +25,7 @@ namespace OnlineShop
             
         }
 
-        public async Task<Product> GetProductByIdAsync(int productId)
+        public Product GetProductById(int productId)
         {
             if (!_products.TryGetValue(productId, out var product))
             {
@@ -37,12 +37,12 @@ namespace OnlineShop
             }
         }
 
-        public async Task RemoveProduct(Product product)
+        public void RemoveProduct(Product product)
         {
            _productDictionary.TryRemove(product.Id, out _);
         }
 
-        public async Task UpdateProduct(Product updatedProduct)
+        public void UpdateProduct(Product updatedProduct)
         {
             if (!_productDictionary.ContainsKey(updatedProduct.Id))
         {
@@ -52,7 +52,7 @@ namespace OnlineShop
              _productDictionary[updatedProduct.Id] = updatedProduct;
         }
 
-        public async Task UpdateProductById(int productId, Product updatedProduct)
+        public void UpdateProductById(int productId, Product updatedProduct)
         {
             if (!_productDictionary.ContainsKey(productId))
         {
@@ -63,7 +63,7 @@ namespace OnlineShop
             _productDictionary[productId] = updatedProduct;
         }
 
-        public async Task ClearCatalog()
+        public void ClearCatalog()
         {
             _productDictionary.Clear();
         }
