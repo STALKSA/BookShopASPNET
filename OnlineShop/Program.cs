@@ -18,12 +18,12 @@ app.UseSwaggerUI();
 Catalog catalog = new Catalog();
 
 app.MapGet("/get_catalog", GetCatalog);
-app.MapPost("/add_product", AddProduct);
+app.MapPost("/add_product", AddProductAsync);
 app.MapPost("/delete_product", RemoveProduct);
 app.MapPost("/update_product", UpdateProduct);
 app.MapPost("/clear_catalog", ClearCatalog);
 
-async Task AddProduct(HttpContext context)
+async Task AddProductAsync(HttpContext context)
 {
     try
     {
