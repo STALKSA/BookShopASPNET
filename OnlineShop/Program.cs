@@ -17,13 +17,13 @@ app.UseSwaggerUI();
 
 Catalog catalog = new Catalog();
 
-app.MapGet("/get_catalog", GetCatalogAsync);
-app.MapPost("/add_product", AddProductAsync);
-app.MapPost("/delete_product", RemoveProductAsync);
-app.MapPost("/update_product", UpdateProductAsync);
-app.MapPost("/clear_catalog", ClearCatalogAsync);
+app.MapGet("/get_catalog", GetCatalog);
+app.MapPost("/add_product", AddProduct);
+app.MapPost("/delete_product", RemoveProduct);
+app.MapPost("/update_product", UpdateProduct);
+app.MapPost("/clear_catalog", ClearCatalog;
 
-async Task AddProductAsync(HttpContext context)
+async Task AddProduct(HttpContext context)
 {
     try
     {
@@ -45,22 +45,22 @@ async Task AddProductAsync(HttpContext context)
     }
 }
 
-async Task<List<Product>> GetCatalogAsync()
+async Task<List<Product>> GetCatalog()
 {
     return catalog.GetProductsAsync();
 }
 
-async Task RemoveProductAsync(Product product)
+async Task RemoveProduct(Product product)
 {
     return catalog.RemoveProductAsync(product);
 }
 
-async Task UpdateProductAsync(Product product)
+async Task UpdateProduct(Product product)
 {
     return catalog.UpdateProductAsync(product);
 }
 
-async Task ClearCatalogAsync(HttpContext context)
+async Task ClearCatalog(HttpContext context)
 {
     await catalog.ClearCatalogAsync();
     context.Response.StatusCode = StatusCodes.Status204NoContent;
