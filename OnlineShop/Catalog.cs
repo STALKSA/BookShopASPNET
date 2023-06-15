@@ -4,7 +4,7 @@ namespace OnlineShop
 {
     public class Catalog
     {
-        private readonly ConcurrentDictionary<int, Product> _productDictionary;
+        private ConcurrentDictionary<int, Product> _productDictionary;
 
         public Catalog()
         {
