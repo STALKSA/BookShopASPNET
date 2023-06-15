@@ -17,7 +17,7 @@ app.UseSwaggerUI();
 
 Catalog catalog = new Catalog();
 
-app.MapGet("/get_catalog", GetProductsAsync);
+app.MapGet("/get_catalog", GetCatalogAsync);
 app.MapPost("/add_product", AddProductAsync);
 app.MapPost("/delete_product", RemoveProductAsync);
 app.MapPost("/update_product", UpdateProductAsync);
@@ -45,7 +45,7 @@ async Task AddProductAsync(HttpContext context)
     }
 }
 
-async Task<List<Product>> GetProductsAsync()
+async Task<List<Product>> GetCatalogAsync()
 {
     return catalog.GetProductsAsync();
 }
