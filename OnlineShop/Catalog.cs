@@ -71,7 +71,7 @@ namespace OnlineShop
         private static ConcurrentDictionary<int, Product> GenerateProducts(int count)
         {
             var random = new Random();
-            var products = new List<Product>();
+            var products = new ConcurrentDictionary<int, Product>();
 
             var productNames = new string[]
             {
