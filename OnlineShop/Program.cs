@@ -23,7 +23,7 @@ app.MapPost("/delete_product", RemoveProduct);
 app.MapPost("/update_product", UpdateProduct);
 app.MapPost("/clear_catalog", ClearCatalog);
 
-async void AddProduct(HttpContext context)
+async Task AddProduct(HttpContext context)
 {
     try
     {
@@ -45,24 +45,24 @@ async void AddProduct(HttpContext context)
     }
 }
 
-List<Product> GetCatalog()
+Task<List<Product>> GetCatalog()
 {
-    return catalog.GetProducts();
+    return catalog.GetProductsAsync();
 }
 
-void RemoveProduct(Product product)
+Task RemoveProduct(Product product)
 {
-    catalog.RemoveProduct(product);
+    return catalog.RemoveProductAsync(product);
 }
 
-void UpdateProduct(Product product)
+Task UpdateProduct(Product product)
 {
-    catalog.UpdateProduct(product);
+    return catalog.UpdateProductAsync(product);
 }
 
-void ClearCatalog(HttpContext context)
+Task ClearCatalog(HttpContext context)
 {
-    catalog.ClearCatalog();
+    await catalog.ClearCatalogAsync();
     context.Response.StatusCode = StatusCodes.Status204NoContent;
 }
 
